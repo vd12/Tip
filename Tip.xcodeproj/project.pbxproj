@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F51202CD1E5939DF006065D9 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F51202CC1E5939DF006065D9 /* SettingsViewController.swift */; };
 		F5241EB91E59289D000BA50F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5241EB81E59289D000BA50F /* AppDelegate.swift */; };
 		F5241EBB1E59289D000BA50F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5241EBA1E59289D000BA50F /* ViewController.swift */; };
 		F5241EBE1E59289D000BA50F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F5241EBC1E59289D000BA50F /* Main.storyboard */; };
@@ -34,6 +35,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		F51202CC1E5939DF006065D9 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		F5241EB51E59289D000BA50F /* Tip.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tip.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F5241EB81E59289D000BA50F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F5241EBA1E59289D000BA50F /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -103,6 +105,7 @@
 				F5241EBF1E59289E000BA50F /* Assets.xcassets */,
 				F5241EC11E59289E000BA50F /* LaunchScreen.storyboard */,
 				F5241EC41E59289E000BA50F /* Info.plist */,
+				F51202CC1E5939DF006065D9 /* SettingsViewController.swift */,
 			);
 			path = Tip;
 			sourceTree = "<group>";
@@ -193,6 +196,7 @@
 				TargetAttributes = {
 					F5241EB41E59289D000BA50F = {
 						CreatedOnToolsVersion = 8.2.1;
+						DevelopmentTeam = WRF8X44CRK;
 						ProvisioningStyle = Automatic;
 					};
 					F5241EC81E59289E000BA50F = {
@@ -261,6 +265,7 @@
 			files = (
 				F5241EBB1E59289D000BA50F /* ViewController.swift in Sources */,
 				F5241EB91E59289D000BA50F /* AppDelegate.swift in Sources */,
+				F51202CD1E5939DF006065D9 /* SettingsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -410,6 +415,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = WRF8X44CRK;
 				INFOPLIST_FILE = Tip/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = vova.com.Tip;
@@ -422,6 +428,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = WRF8X44CRK;
 				INFOPLIST_FILE = Tip/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = vova.com.Tip;
@@ -503,6 +510,7 @@
 				F5241EDF1E59289E000BA50F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		F5241EE01E59289E000BA50F /* Build configuration list for PBXNativeTarget "TipTests" */ = {
 			isa = XCConfigurationList;
@@ -511,6 +519,7 @@
 				F5241EE21E59289E000BA50F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		F5241EE31E59289E000BA50F /* Build configuration list for PBXNativeTarget "TipUITests" */ = {
 			isa = XCConfigurationList;
@@ -519,6 +528,7 @@
 				F5241EE51E59289E000BA50F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
