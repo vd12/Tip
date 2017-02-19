@@ -21,6 +21,8 @@ class ViewController: UIViewController {
         let defaults = UserDefaults.standard
         defaultIndex = defaults.integer(forKey: "defaultPercentage")
         tipControl.selectedSegmentIndex = defaultIndex
+        let bill = defaults.double(forKey: "defaultBill")
+        billField.text = String(format: "%.2f", bill)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -29,11 +31,10 @@ class ViewController: UIViewController {
             let settingsViewController = segue.destination as! SettingsViewController
             settingsViewController.defaultIndex = defaultIndex
             settingsViewController.delegate = self
-            
+            //animation
             settingsViewController.view.alpha = 0
             self.view.alpha = 1
             UIView.animate(withDuration: 0.5, animations: {
-                // This causes first view to fade in and second view to fade out
                 settingsViewController.view.alpha = 1
                 self.view.alpha = 0
             })
@@ -45,11 +46,13 @@ class ViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         calculateTip(AnyClass.self)
+        billField.becomeFirstResponder()
     }
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         // Optionally initialize the property to a desired starting value
+        billField.resignFirstResponder()
     }
 
     override func didReceiveMemoryWarning() {

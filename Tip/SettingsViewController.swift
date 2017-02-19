@@ -12,7 +12,6 @@ class SettingsViewController: UIViewController {
     @IBOutlet weak var defaultPercentage: UISegmentedControl!
     weak var delegate:ViewController! = nil
     var defaultIndex = 0
-    var changed = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,15 +25,10 @@ class SettingsViewController: UIViewController {
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        if changed {
-            delegate.tipControl.selectedSegmentIndex = defaultIndex
-        }
-        
-        // Optionally initialize the property to a desired starting value
+        //animation
         delegate.view.alpha = 0
         self.view.alpha = 1
         UIView.animate(withDuration: 0.5, animations: {
-            // This causes first view to fade in and second view to fade out
             self.delegate.view.alpha = 1
             self.view.alpha = 0
         })
@@ -60,6 +54,6 @@ class SettingsViewController: UIViewController {
         let defaults = UserDefaults.standard
         defaults.set(defaultIndex, forKey: "defaultPercentage")
         defaults.synchronize()
-        changed = true
+        delegate.tipControl.selectedSegmentIndex = defaultIndex
     }
 }

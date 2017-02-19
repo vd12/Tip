@@ -12,7 +12,7 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-
+    var beforeDate: NSDate?, afterDate: NSDate?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
@@ -27,10 +27,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationDidEnterBackground(_ application: UIApplication) {
         // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
         // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+        beforeDate = NSDate()
     }
 
     func applicationWillEnterForeground(_ application: UIApplication) {
         // Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.
+        afterDate = NSDate()
+        beforeDate = beforeDate?.addingTimeInterval(600)
+        if afterDate?.compare(beforeDate as! Date) == ComparisonResult.orderedDescending {
+            let nav = self.window?.rootViewController as! UINavigationController;
+            let vc = nav.topViewController as! ViewController
+            vc.billField.text = "0.00"
+            vc.calculateTip(AnyClass.self)
+        }
     }
 
     func applicationDidBecomeActive(_ application: UIApplication) {
@@ -39,6 +48,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+        let nav = self.window?.rootViewController as! UINavigationController;
+        let vc = nav.topViewController as! ViewController
+        let defaultBill = Double(vc.billField.text!) ?? 0
+        let defaults = UserDefaults.standard
+        defaults.set(defaultBill, forKey: "defaultBill")
+        defaults.synchronize()
     }
 
 
