@@ -38,7 +38,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             if afterDate.compare(beforeDate as Date) == ComparisonResult.orderedDescending {
                 let nav = self.window?.rootViewController as! UINavigationController;
                 let vc = nav.topViewController as! ViewController
-                vc.billField.text = "0.00"
+                vc.billField.text = ""
                 vc.calculateTip(AnyClass.self)
             }
         }

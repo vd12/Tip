@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ViewController: UIViewController, UITextFieldDelegate {
+class ViewController: UIViewController {
 
     @IBOutlet weak var billField: UITextField!
     @IBOutlet weak var tipLabel: UILabel!
@@ -22,8 +22,11 @@ class ViewController: UIViewController, UITextFieldDelegate {
         defaultIndex = defaults.integer(forKey: "defaultPercentage")
         tipControl.selectedSegmentIndex = defaultIndex
         let bill = defaults.double(forKey: "defaultBill")
-        billField.delegate = self
-        billField.text = String(format: "%.2f", bill)
+        let locale = Locale.current
+        billField.placeholder = locale.currencySymbol
+        if bill != 0.0 {
+            billField.text = String(format: "%.2f", bill)
+        }
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -81,13 +84,6 @@ class ViewController: UIViewController, UITextFieldDelegate {
         tipLabel.text = formatCurrency(value: tip)
         totalLabel.text = formatCurrency(value: total)
     }
-    
-//    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool { // return NO to not change text
-//        var resStr = billField.text!
-//        resStr += string
-//        billField.text = formatCurrency(value: Double(resStr)!)
-//        return true
-//    }
     
     func formatCurrency(value: Double) -> String {
         let formatter = NumberFormatter()
