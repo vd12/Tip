@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, UITextFieldDelegate {
 
     @IBOutlet weak var billField: UITextField!
     @IBOutlet weak var tipLabel: UILabel!
@@ -22,6 +22,7 @@ class ViewController: UIViewController {
         defaultIndex = defaults.integer(forKey: "defaultPercentage")
         tipControl.selectedSegmentIndex = defaultIndex
         let bill = defaults.double(forKey: "defaultBill")
+        billField.delegate = self
         billField.text = String(format: "%.2f", bill)
     }
     
@@ -62,6 +63,7 @@ class ViewController: UIViewController {
 
     @IBAction func onTap(_ sender: Any) {
         view.endEditing(true)
+        billField.becomeFirstResponder()
     }
 
     @IBAction func percentageChanged(_ sender: Any) {
@@ -70,15 +72,24 @@ class ViewController: UIViewController {
     
     @IBAction func calculateTip(_ sender: Any) {
         let tipPercentages = [0.18, 0.20, 0.25]
+        //let billDigits = billField.text?.trimmingCharacters(in: CharacterSet(charactersIn: "01234567890.").inverted)
         let bill = Double(billField.text!) ?? 0
+        //let bill = Double(billDigits!) ?? 0
         let tip = bill * tipPercentages[tipControl.selectedSegmentIndex]
         let total = bill + tip;
-        
-        tipLabel.text = formatCurreny(value: tip)
-        totalLabel.text = formatCurreny(value: total)
+        //billField.text = formatCurrency(value: bill)
+        tipLabel.text = formatCurrency(value: tip)
+        totalLabel.text = formatCurrency(value: total)
     }
     
-    func formatCurreny(value: Double) -> String {
+//    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool { // return NO to not change text
+//        var resStr = billField.text!
+//        resStr += string
+//        billField.text = formatCurrency(value: Double(resStr)!)
+//        return true
+//    }
+    
+    func formatCurrency(value: Double) -> String {
         let formatter = NumberFormatter()
         formatter.numberStyle = .currency
         formatter.maximumFractionDigits = 2;
