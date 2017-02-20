@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, UITextFieldDelegate {
 
     @IBOutlet weak var billField: UITextField!
     @IBOutlet weak var tipLabel: UILabel!
@@ -27,6 +27,7 @@ class ViewController: UIViewController {
         if bill != 0.0 {
             billField.text = String(format: "%.2f", bill)
         }
+        billField.delegate = self
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -75,23 +76,41 @@ class ViewController: UIViewController {
     
     @IBAction func calculateTip(_ sender: Any) {
         let tipPercentages = [0.18, 0.20, 0.25]
-        //let billDigits = billField.text?.trimmingCharacters(in: CharacterSet(charactersIn: "01234567890.").inverted)
         let bill = Double(billField.text!) ?? 0
-        //let bill = Double(billDigits!) ?? 0
         let tip = bill * tipPercentages[tipControl.selectedSegmentIndex]
         let total = bill + tip;
-        //billField.text = formatCurrency(value: bill)
         tipLabel.text = formatCurrency(value: tip)
+        if !((tipLabel.text?.isEmpty)!) {
+                tipLabel.text = "Tip "+tipLabel.text!
+        }
         totalLabel.text = formatCurrency(value: total)
+        if !((totalLabel.text?.isEmpty)!) {
+            totalLabel.text = "Total "+totalLabel.text!
+        }
     }
     
     func formatCurrency(value: Double) -> String {
+        if value == 0.0 {
+            return ""
+        }
         let formatter = NumberFormatter()
         formatter.numberStyle = .currency
         formatter.maximumFractionDigits = 2;
         formatter.locale = Locale(identifier: Locale.current.identifier)
         let result = formatter.string(from: value as NSNumber);
         return result!;
+    }
+    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        let dotsCount = textField.text!.components(separatedBy: ".").count - 1
+        if dotsCount > 0 && (string == "." || string == ",") {
+            return false
+        }
+        if string == "," {
+            textField.text! += "."
+            return false
+        }
+        return true
     }
 }
 
