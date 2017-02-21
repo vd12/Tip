@@ -22,7 +22,12 @@ The following **optional** features are implemented:
 The following **additional** features are implemented:
 
 - [X] List anything else that you can get done to improve the app functionality!
-Second’.’ or ‘,’ skipped.Ip@tolal disapeer on ) tip.
+Skip second decimalSeparator
+No tip & total if bill == 0
+No more then two digits after point
+Only one leading 0
+Bill amount limit
+Block touches on bill to avoid cursor move 
 
 ## Video Walkthrough 
 

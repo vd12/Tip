@@ -75,17 +75,17 @@ class ViewController: UIViewController, UITextFieldDelegate {
     }
     
     @IBAction func calculateTip(_ sender: Any) {
-        let tipPercentages = [0.18, 0.20, 0.25]
+        let tipPercentages = [0.15, 0.20, 0.25]
         let bill = Double(billField.text!) ?? 0
         let tip = bill * tipPercentages[tipControl.selectedSegmentIndex]
         let total = bill + tip;
         tipLabel.text = formatCurrency(value: tip)
         if !((tipLabel.text?.isEmpty)!) {
-                tipLabel.text = "Tip "+tipLabel.text!
+                tipLabel.text = "Tip " + tipLabel.text!
         }
         totalLabel.text = formatCurrency(value: total)
         if !((totalLabel.text?.isEmpty)!) {
-            totalLabel.text = "Total "+totalLabel.text!
+            totalLabel.text = "Total " + totalLabel.text!
         }
     }
     
@@ -101,13 +101,23 @@ class ViewController: UIViewController, UITextFieldDelegate {
         return result!;
     }
     
+    
+    
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        let dotsCount = textField.text!.components(separatedBy: ".").count - 1
-        if dotsCount > 0 && (string == "." || string == ",") {
+        let dotsCount = textField.text!.components(separatedBy: Locale.current.decimalSeparator!).count - 1
+        if dotsCount > 0 && string == Locale.current.decimalSeparator! {
             return false
         }
-        if string == "," {
-            textField.text! += "."
+        let length = textField.text!.lengthOfBytes(using: String.Encoding.utf8)
+        if string != "" && length >= 3 && String(textField.text![textField.text!.index(textField.text!.endIndex, offsetBy: -3)]) == Locale.current.decimalSeparator! { // no more then two digits after point
+            return false
+        }
+        if textField.text! == "0" && length == 1 && string != Locale.current.decimalSeparator! && String(textField.text![textField.text!.index(textField.text!.endIndex, offsetBy: -1)]) != Locale.current.decimalSeparator! { // only one leading 0
+            textField.text! = string
+            return false
+        }
+        let bill = Double(billField.text! + string) ?? 0
+        if bill > 1000000000 { //limit 1 billion
             return false
         }
         return true

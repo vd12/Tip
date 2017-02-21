@@ -8,14 +8,27 @@
 
 import UIKit
 
-class SettingsViewController: UIViewController {
+class SettingsViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
     @IBOutlet weak var defaultPercentage: UISegmentedControl!
+    @IBOutlet weak var regionPicker: UIPickerView!
+    
     weak var delegate:ViewController! = nil
+    
+    var pickerDataSoruce:NSMutableArray? = NSMutableArray()
     var defaultIndex = 0
 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        
+        //let locale = Locale.current commonISOCurrencyCodes isoCurrencyCodes
+        for (index, item) in Locale.isoRegionCodes.enumerated() {
+            let unwrappedItem = item
+            pickerDataSoruce?.add(unwrappedItem)
+            print("Found \(item) at position \(index)")
+        }
+        regionPicker.delegate = self
+        regionPicker.dataSource = self
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -39,16 +52,22 @@ class SettingsViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
     }
-    */
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return pickerDataSoruce!.count;
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return String(describing: pickerDataSoruce?[row])
+    }
+    
     @IBAction func changeDefaultPercentage(_ sender: UISegmentedControl) {
         defaultIndex = sender.selectedSegmentIndex
         let defaults = UserDefaults.standard
