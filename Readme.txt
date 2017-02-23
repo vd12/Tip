@@ -27,7 +27,9 @@ No tip & total if bill == 0
 No more then two digits after point
 Only one leading 0
 Bill amount limit
-Block touches on bill to avoid cursor move 
+Block touches on bill to avoid cursor move
+Select currency in app settings as well as from iOS Settings “Region”
+Parallax effect
 
 ## Video Walkthrough 
 

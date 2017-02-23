@@ -32,16 +32,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationWillEnterForeground(_ application: UIApplication) {
         // Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.
+        let nav = self.window?.rootViewController as! UINavigationController;
+        let vc = nav.topViewController as! ViewController
         if var beforeDate = didEnterBackgroundDate {
             let afterDate = NSDate()
             beforeDate = beforeDate.addingTimeInterval(600)
             if afterDate.compare(beforeDate as Date) == ComparisonResult.orderedDescending {
-                let nav = self.window?.rootViewController as! UINavigationController;
-                let vc = nav.topViewController as! ViewController
                 vc.billField.text = ""
-                vc.calculateTip(AnyClass.self)
             }
         }
+        vc.recalcLocaleAndTip();
     }
 
     func applicationDidBecomeActive(_ application: UIApplication) {
@@ -53,9 +53,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let nav = self.window?.rootViewController as! UINavigationController;
         let vc = nav.topViewController as! ViewController
         let defaultBill = Double(vc.billField.text!) ?? 0
-        let defaults = UserDefaults.standard
-        defaults.set(defaultBill, forKey: "defaultBill")
-        defaults.synchronize()
+        UserDefaults.standard.set(defaultBill, forKey: "DefaultBill")
+        UserDefaults.standard.synchronize()
     }
 
 
