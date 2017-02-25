@@ -30,6 +30,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
         if bill != 0.0 {
             billField.text = String(format: "%.2f", bill)
         }
+        billField.keyboardType = .decimalPad
         var motionEffect = UIInterpolatingMotionEffect.init(keyPath: "center.x", type: .tiltAlongHorizontalAxis)
         motionEffect.minimumRelativeValue = -30
         motionEffect.maximumRelativeValue = 30
@@ -162,20 +163,29 @@ class ViewController: UIViewController, UITextFieldDelegate {
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         let endIndex = textField.text!.endIndex;
         let length = textField.text!.lengthOfBytes(using: String.Encoding.utf8)
-        let locale = (appLocale != nil) ? appLocale : systemLocale
+        //let locale = (appLocale != nil) ? appLocale : systemLocale
+        //let decSeparator = (locale?.decimalSeparator)!
+        let separator = (string == "." || string == ",") ? true : false
+        var dotsCount = textField.text!.components(separatedBy: ".").count - 1
+        dotsCount += textField.text!.components(separatedBy: ".").count - 1
         
-        let dotsCount = textField.text!.components(separatedBy: (locale?.decimalSeparator!)!).count - 1
-        if dotsCount > 0 && string == locale?.decimalSeparator! {
+        if dotsCount > 0 && separator { //no more then 1 separator hack!!!
             return false
         }
-        if string != "" && length >= 3 && String(textField.text![textField.text!.index(endIndex, offsetBy: -3)]) == locale?.decimalSeparator! { // no more then two digits after point
-            return false
+        if string != "" && length >= 3 {
+            let couldBeSeparator = String(textField.text![textField.text!.index(endIndex, offsetBy: -3)]);
+            if (couldBeSeparator == "." || couldBeSeparator == ",")  { // no more then two digits after point
+                return false
+            }
         }
-        if textField.text! == "0" && length == 1 && string != locale?.decimalSeparator! && String(textField.text![textField.text!.index(endIndex, offsetBy: -1)]) != locale?.decimalSeparator! { // only one leading 0
-            textField.text! = string
-            return false
+        if textField.text! == "0" && length == 1 {
+            let last = String(textField.text![textField.text!.index(endIndex, offsetBy: -1)])
+            if !separator &&  (last != "." && last != ",") { // only one leading 0
+                textField.text! = string
+                return false
+            }
         }
-        if length == 0 && string == locale?.decimalSeparator! { // add leading 0 if separator
+        if length == 0 && separator { // add leading 0 if separator
             textField.text! = "0"
         }
         let bill = Double(billField.text! + string) ?? 0

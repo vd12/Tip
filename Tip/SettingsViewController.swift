@@ -95,6 +95,7 @@ class SettingsViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         delegate.appLocale = pickerDataSource[row].locale
+        delegate.billField.keyboardType = .decimalPad
         UserDefaults.standard.set(self.delegate.appLocale?.identifier, forKey: "DefaultAppLocale")
         UserDefaults.standard.synchronize()
     }
