@@ -12,7 +12,7 @@ class SettingsViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
     @IBOutlet weak var defaultPercentage: UISegmentedControl!
     @IBOutlet weak var regionPicker: UIPickerView!
     
-    weak var delegate:ViewController! = nil
+    weak var delegate:TipCalcViewController!
     
     var pickerDataSource:[(name: String, locale: Locale)] = []
     var defaultSegmentIndex = 0
