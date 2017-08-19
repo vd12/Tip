@@ -90,8 +90,10 @@ class TipCalcViewController: UIViewController, UITextFieldDelegate {
         if systemCurrencySymbol == systemCurrencyCode {
             for (_, item) in Locale.availableIdentifiers.enumerated() {
                 let locale = NSLocale(localeIdentifier: item)
-                if let currencyCode =  locale.object(forKey: NSLocale.Key.currencyCode), let currencySymbol =  locale.object(forKey: NSLocale.Key.currencySymbol) {
-                    if (currencySymbol as! String) != (currencyCode as! String) && (currencyCode as! String) == systemCurrencyCode {
+                if let currencyCode =  locale.object(forKey: NSLocale.Key.currencyCode),
+                    let currencySymbol =  locale.object(forKey: NSLocale.Key.currencySymbol) {
+                    if (currencySymbol as! String) != (currencyCode as! String) &&
+                        (currencyCode as! String) == systemCurrencyCode {
                         systemLocale = locale as Locale
                     }
                 }

@@ -36,7 +36,8 @@ class SettingsViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
         let currentIdentifyer =  currentLocale.identifier
         for (_, item) in Locale.availableIdentifiers.enumerated() {
             let locale = NSLocale(localeIdentifier: item)
-            if let currencyCode =  locale.object(forKey: NSLocale.Key.currencyCode), let currencySymbol =  locale.object(forKey: NSLocale.Key.currencySymbol),
+            if let currencyCode =  locale.object(forKey: NSLocale.Key.currencyCode),
+                let currencySymbol =  locale.object(forKey: NSLocale.Key.currencySymbol),
                 let countryCode =  locale.object(forKey: NSLocale.Key.countryCode) {
                 if (currencySymbol as! String) != (currencyCode as! String) {
                     let countryName = Locale.current.localizedString(forRegionCode: countryCode as! String)
