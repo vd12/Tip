@@ -33,7 +33,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillEnterForeground(_ application: UIApplication) {
         // Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.
         let nav = self.window?.rootViewController as! UINavigationController;
-        let vc = nav.topViewController as! ViewController
+        let vc = nav.topViewController as! TipCalcViewController
         if var beforeDate = didEnterBackgroundDate {
             let afterDate = NSDate()
             beforeDate = beforeDate.addingTimeInterval(600)
@@ -51,7 +51,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
         let nav = self.window?.rootViewController as! UINavigationController;
-        let vc = nav.topViewController as! ViewController
+        let vc = nav.topViewController as! TipCalcViewController
         let defaultBill = Double(vc.billField.text!) ?? 0
         UserDefaults.standard.set(defaultBill, forKey: "DefaultBill")
         UserDefaults.standard.synchronize()
